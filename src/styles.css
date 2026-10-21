@@ -1,0 +1,170 @@
+/* Lives in the widget's shadow root. Set --va-accent on <voice-assistant> to match your brand. */
+:host {
+  --accent: var(--va-accent, #4338ca);
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --bubble: #f3f4f6;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483000;
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--fg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --bg: #1f2125;
+    --fg: #f3f4f6;
+    --muted: #9ca3af;
+    --bubble: #2c2f35;
+  }
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+}
+
+.launcher {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s;
+}
+.launcher:hover {
+  transform: scale(1.06);
+}
+
+.panel {
+  width: min(360px, calc(100vw - 40px));
+  max-height: min(560px, calc(100vh - 40px));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--bg);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.3);
+  box-sizing: border-box;
+}
+.panel > * {
+  flex-shrink: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+header strong {
+  display: block;
+  font-size: 17px;
+}
+.powered {
+  color: var(--muted);
+  font-size: 13px;
+}
+.close {
+  background: none;
+  color: var(--muted);
+  font-size: 24px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.orb {
+  width: 72px;
+  height: 72px;
+  margin: 4px auto 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff8, transparent 60%), var(--accent);
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+.orb.listening,
+.orb.hearing,
+.orb.thinking,
+.orb.speaking {
+  opacity: 1;
+}
+.orb.hearing {
+  animation: pulse 0.9s ease-in-out infinite;
+}
+.orb.thinking {
+  animation: pulse 1.6s ease-in-out infinite;
+  opacity: 0.6;
+}
+.orb.speaking {
+  animation: talk 0.45s ease-in-out infinite alternate;
+}
+@keyframes pulse {
+  50% { transform: scale(0.88); }
+}
+@keyframes talk {
+  to { transform: scale(1.12); }
+}
+
+.status {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.transcript {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  flex-shrink: 1;
+}
+.transcript li {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--bubble);
+}
+.transcript li.user {
+  align-self: end;
+  background: var(--accent);
+  color: #fff;
+}
+.transcript li.interrupted::after {
+  content: " (interrupted)";
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+.primary.end {
+  background: var(--bubble);
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb {
+    animation: none !important;
+  }
+}
