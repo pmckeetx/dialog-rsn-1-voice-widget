@@ -4,6 +4,9 @@ A voice assistant you add to a website with one script tag. Visitors click the b
 hear the answer. Dialog-RSN-1 hears the audio, decides when they've finished, writes the reply and
 speaks it.
 
+The tutorial that walks through the code step by step is on my blog:
+[Add a Voice Assistant to Any Website with Dialog-RSN-1](https://www.petermckee.dev/blog/add-a-voice-assistant-to-any-website).
+
 ![The widget on the Larkspur Bikes test site](docs/screenshot.png)
 
 - **The widget:** React 19, built by Vite 8 into one file, `dist/voice-assistant.js`, and packaged as a
